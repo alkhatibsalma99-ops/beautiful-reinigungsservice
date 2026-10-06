@@ -891,133 +891,151 @@
 
     <div class="contact-box">
 
-      <h3>
-        Unverbindliche Anfrage
-      </h3>
-
-
-      <form
-        action="https://formspree.io/f/xkjoogwv"
-        method="POST"
-        autocomplete="on"
-      >
-
-
-        <label
-          class="sr-only"
-          for="name"
+        <h3>
+          Unverbindliche Anfrage
+        </h3>
+      
+        <form
+          id="contactForm"
+          action="https://formspree.io/f/xkjoogwv"
+          method="POST"
         >
-          Name
-        </label>
-
-
-        <input
-          id="name"
-          type="text"
-          name="name"
-          placeholder="Name"
-          maxlength="100"
-          required
-        >
-
-
-        <label
-          class="sr-only"
-          for="email"
-        >
-          E-Mail
-        </label>
-
-
-        <input
-          id="email"
-          type="email"
-          name="email"
-          placeholder="E-Mail"
-          maxlength="150"
-          required
-        >
-
-
-        <label
-          class="sr-only"
-          for="telefon"
-        >
-          Telefon
-        </label>
-
-
-        <input
-          id="telefon"
-          type="tel"
-          name="telefon"
-          placeholder="Telefon"
-          maxlength="40"
-        >
-
-
-        <label
-          class="sr-only"
-          for="leistung"
-        >
-          Leistung
-        </label>
-
-
-        <select
-          name="leistung"
-          id="leistung"
-          required
-        >
-
-          <option value="">
-            Leistung auswählen
-          </option>
-
-          <option value="Gebäudereinigung">
-            Gebäudereinigung
-          </option>
-
-          <option value="Büroreinigung">
-            Büroreinigung
-          </option>
-
-          <option value="Glasreinigung">
-            Glasreinigung
-          </option>
-
-          <option value="Treppenhausreinigung">
-            Treppenhausreinigung
-          </option>
-
-          <option value="Unterhaltsreinigung">
-            Unterhaltsreinigung
-          </option>
-
-          <option value="Parkettpflege">
-            Parkettpflege
-          </option>
-
-        </select>
-
-
-        <label
-          class="sr-only"
-          for="nachricht"
-        >
-          Nachricht
-        </label>
-
-
-        <textarea
-          id="nachricht"
-          name="nachricht"
-          rows="5"
-          placeholder="Ihre Nachricht"
-          maxlength="2000"
-          required
-        ></textarea>
-
+      
+          <label class="sr-only" for="name">
+            Name
+          </label>
+      
+          <input
+            id="name"
+            type="text"
+            name="name"
+            placeholder="Name"
+            maxlength="100"
+            required
+          >
+      
+      
+          <label class="sr-only" for="email">
+            E-Mail
+          </label>
+      
+          <input
+            id="email"
+            type="email"
+            name="email"
+            placeholder="E-Mail"
+            maxlength="150"
+            required
+          >
+      
+      
+          <label class="sr-only" for="telefon">
+            Telefon
+          </label>
+      
+          <input
+            id="telefon"
+            type="tel"
+            name="telefon"
+            placeholder="Telefon"
+            maxlength="40"
+          >
+      
+      
+          <label class="sr-only" for="leistung">
+            Leistung
+          </label>
+      
+          <select
+            id="leistung"
+            name="leistung"
+            required
+          >
+      
+            <option value="">
+              Leistung auswählen
+            </option>
+      
+            <option value="Gebäudereinigung">
+              Gebäudereinigung
+            </option>
+      
+            <option value="Büroreinigung">
+              Büroreinigung
+            </option>
+      
+            <option value="Glasreinigung">
+              Glasreinigung
+            </option>
+      
+            <option value="Treppenhausreinigung">
+              Treppenhausreinigung
+            </option>
+      
+            <option value="Unterhaltsreinigung">
+              Unterhaltsreinigung
+            </option>
+      
+            <option value="Parkettpflege">
+              Parkettpflege
+            </option>
+      
+          </select>
+      
+      
+          <label class="sr-only" for="nachricht">
+            Nachricht
+          </label>
+      
+          <textarea
+            id="nachricht"
+            name="nachricht"
+            rows="5"
+            placeholder="Ihre Nachricht"
+            maxlength="2000"
+            required
+          ></textarea>
+      
+      
+          <!-- Honeypot gegen Bots -->
+      
+          <div
+            class="bot-field-wrapper"
+            aria-hidden="true"
+          >
+      
+            <label for="website">
+              Bitte nicht ausfüllen
+            </label>
+      
+            <input
+              id="website"
+              type="text"
+              name="_gotcha"
+              tabindex="-1"
+              autocomplete="off"
+            >
+      
+          </div>
+      
+      
+          <button
+            id="submitButton"
+            type="submit"
+          >
+            Anfrage senden
+          </button>
+      
+      
+          <div
+            id="formStatus"
+            class="form-status"
+            aria-live="polite"
+          ></div>
+      
+        </form>
+      
+      </div>
 
         <!-- Honeypot gegen Bots -->
 

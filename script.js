@@ -17,7 +17,6 @@ if (menuToggle && mobileNav) {
     const isOpen =
       mobileNav.classList.toggle("active");
 
-
     menuToggle.setAttribute(
       "aria-expanded",
       String(isOpen)
@@ -93,28 +92,21 @@ document
       const service =
         button.dataset.service;
 
-
       const select =
         document.getElementById("leistung");
-
 
       const kontakt =
         document.getElementById("kontakt");
 
 
-      if (
-        select &&
-        service
-      ) {
+      if (select && service) {
 
         const validOptions =
           Array.from(select.options)
             .map(option => option.value);
 
 
-        if (
-          validOptions.includes(service)
-        ) {
+        if (validOptions.includes(service)) {
 
           select.value = service;
 
@@ -138,25 +130,32 @@ document
 
 
 
-/* ================= FORM BASIC PROTECTION ================= */
+/* ================= FORMSPREE AJAX ================= */
 
 const contactForm =
-  document.querySelector(
-    '.contact-box form'
-  );
+  document.getElementById("contactForm");
+
+const submitButton =
+  document.getElementById("submitButton");
+
+const formStatus =
+  document.getElementById("formStatus");
 
 
-if (contactForm) {
+if (
+  contactForm &&
+  submitButton &&
+  formStatus
+) {
 
   contactForm.addEventListener(
     "submit",
-    event => {
+    async event => {
 
-      const submitButton =
-        contactForm.querySelector(
-          'button[type="submit"]'
-        );
+      event.preventDefault();
 
+
+      /* Honeypot prüfen */
 
       const honeypot =
         contactForm.querySelector(
@@ -164,43 +163,132 @@ if (contactForm) {
         );
 
 
-      /*
-        إذا البوت عبّى الحقل المخفي،
-        منوقف الإرسال.
-      */
-
       if (
         honeypot &&
         honeypot.value.trim() !== ""
       ) {
 
-        event.preventDefault();
-
         return;
+
       }
 
 
-      if (submitButton) {
+      /* Browser-Validierung */
 
-        submitButton.disabled = true;
+      if (!contactForm.checkValidity()) {
+
+        contactForm.reportValidity();
+
+        return;
+
+      }
+
+
+      submitButton.disabled = true;
+
+      submitButton.textContent =
+        "Wird gesendet...";
+
+
+      formStatus.className =
+        "form-status";
+
+      formStatus.textContent = "";
+
+
+      try {
+
+        const formData =
+          new FormData(contactForm);
+
+
+        const response =
+          await fetch(
+            contactForm.action,
+            {
+              method: "POST",
+              body: formData,
+
+              headers: {
+                "Accept": "application/json"
+              }
+            }
+          );
+
+
+        if (response.ok) {
+
+          formStatus.className =
+            "form-status success";
+
+          formStatus.textContent =
+            "Vielen Dank! Ihre Anfrage wurde erfolgreich gesendet. Wir melden uns so schnell wie möglich bei Ihnen.";
+
+
+          contactForm.reset();
+
+
+          /*
+            بعد النجاح منرجّع المستخدم
+            لبداية رسالة النجاح
+          */
+
+          formStatus.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+          });
+
+        } else {
+
+          let message =
+            "Beim Senden ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.";
+
+
+          try {
+
+            const data =
+              await response.json();
+
+
+            if (
+              data.errors &&
+              data.errors.length > 0
+            ) {
+
+              message =
+                data.errors
+                  .map(error => error.message)
+                  .join(" ");
+
+            }
+
+          } catch {
+            /* JSON غير متوفر */
+          }
+
+
+          formStatus.className =
+            "form-status error";
+
+          formStatus.textContent =
+            message;
+
+        }
+
+      } catch (error) {
+
+        formStatus.className =
+          "form-status error";
+
+        formStatus.textContent =
+          "Die Anfrage konnte nicht gesendet werden. Bitte prüfen Sie Ihre Internetverbindung oder kontaktieren Sie uns telefonisch.";
+
+      } finally {
+
+        submitButton.disabled = false;
 
         submitButton.textContent =
-          "Wird gesendet...";
-
-
-        /*
-          إذا صار فشل خارجي،
-          منرجع نفعّل الزر بعد شوي.
-        */
-
-        setTimeout(() => {
-
-          submitButton.disabled = false;
-
-          submitButton.textContent =
-            "Anfrage senden";
-
-        }, 8000);
+          "Anfrage senden";
 
       }
 
