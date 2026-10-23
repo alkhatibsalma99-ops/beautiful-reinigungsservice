@@ -552,7 +552,7 @@ nav a:focus-visible {
 }
 
 
-/* FORM */
+/* ================= FORM ================= */
 
 .contact-box {
   background: white;
@@ -724,26 +724,56 @@ nav a:focus-visible {
 }
 
 
-/* ================= WHATSAPP ================= */
+/* ================= FLOATING CONTACT BUTTONS ================= */
 
-.whatsapp-button {
+.whatsapp-button,
+.email-button {
   position: fixed;
   right: 20px;
-  bottom: 20px;
-  background: #25d366;
+
   color: white;
   text-decoration: none;
   font-weight: bold;
+
   padding: 14px 18px;
+
   border-radius: 50px;
+
   box-shadow: 0 8px 20px rgba(0,0,0,0.18);
+
   z-index: 9999;
-  transition: 0.2s;
+
+  transition:
+    transform 0.2s,
+    background 0.2s;
+}
+
+
+/* WhatsApp */
+
+.whatsapp-button {
+  bottom: 20px;
+  background: #25d366;
 }
 
 .whatsapp-button:hover,
 .whatsapp-button:focus-visible {
   transform: translateY(-3px);
+  background: #1ebe5d;
+}
+
+
+/* Email */
+
+.email-button {
+  bottom: 80px;
+  background: #168eea;
+}
+
+.email-button:hover,
+.email-button:focus-visible {
+  transform: translateY(-3px);
+  background: #0877c9;
 }
 
 
@@ -980,9 +1010,22 @@ button:focus-visible {
     padding: 24px;
   }
 
-  .whatsapp-button {
+
+  /* Floating Buttons Mobile */
+
+  .whatsapp-button,
+  .email-button {
     right: 14px;
+    padding: 12px 15px;
+    font-size: 14px;
+  }
+
+  .whatsapp-button {
     bottom: 14px;
+  }
+
+  .email-button {
+    bottom: 68px;
   }
 
 }
