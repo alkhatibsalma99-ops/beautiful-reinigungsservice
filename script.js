@@ -1,5 +1,6 @@
 "use strict";
 
+
 /* ================= MOBILE MENU ================= */
 
 const menuToggle =
@@ -7,6 +8,7 @@ const menuToggle =
 
 const mobileNav =
   document.getElementById("mobileNav");
+
 
 if (menuToggle && mobileNav) {
 
@@ -21,6 +23,7 @@ if (menuToggle && mobileNav) {
     );
 
   });
+
 
   mobileNav
     .querySelectorAll("a")
@@ -42,6 +45,7 @@ if (menuToggle && mobileNav) {
 }
 
 
+
 /* ================= MEHR ERFAHREN ================= */
 
 document
@@ -53,6 +57,7 @@ document
       const moreText =
         button.nextElementSibling;
 
+
       if (
         !moreText ||
         !moreText.classList.contains("more-text")
@@ -60,8 +65,10 @@ document
         return;
       }
 
+
       const isOpen =
         moreText.classList.toggle("active");
+
 
       button.textContent =
         isOpen
@@ -71,6 +78,7 @@ document
     });
 
   });
+
 
 
 /* ================= SERVICE → FORM ================= */
@@ -90,17 +98,22 @@ document
       const kontakt =
         document.getElementById("kontakt");
 
+
       if (select && service) {
 
         const validOptions =
           Array.from(select.options)
             .map(option => option.value);
 
+
         if (validOptions.includes(service)) {
+
           select.value = service;
+
         }
 
       }
+
 
       if (kontakt) {
 
@@ -116,6 +129,7 @@ document
   });
 
 
+
 /* ================= FORMSPREE AJAX ================= */
 
 const contactForm =
@@ -126,6 +140,7 @@ const submitButton =
 
 const formStatus =
   document.getElementById("formStatus");
+
 
 if (
   contactForm &&
@@ -139,10 +154,12 @@ if (
 
       event.preventDefault();
 
+
       const honeypot =
         contactForm.querySelector(
           'input[name="_gotcha"]'
         );
+
 
       if (
         honeypot &&
@@ -151,6 +168,7 @@ if (
         return;
       }
 
+
       if (!contactForm.checkValidity()) {
 
         contactForm.reportValidity();
@@ -158,20 +176,24 @@ if (
         return;
       }
 
+
       submitButton.disabled = true;
 
       submitButton.textContent =
         "Wird gesendet...";
+
 
       formStatus.className =
         "form-status";
 
       formStatus.textContent = "";
 
+
       try {
 
         const formData =
           new FormData(contactForm);
+
 
         const response =
           await fetch(
@@ -186,6 +208,7 @@ if (
             }
           );
 
+
         if (response.ok) {
 
           formStatus.className =
@@ -194,7 +217,9 @@ if (
           formStatus.textContent =
             "Vielen Dank! Ihre Anfrage wurde erfolgreich gesendet. Wir melden uns so schnell wie möglich bei Ihnen.";
 
+
           contactForm.reset();
+
 
           formStatus.scrollIntoView({
             behavior: "smooth",
@@ -206,10 +231,12 @@ if (
           let message =
             "Beim Senden ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.";
 
+
           try {
 
             const data =
               await response.json();
+
 
             if (
               data.errors &&
@@ -227,6 +254,7 @@ if (
             /* Keine JSON-Antwort */
           }
 
+
           formStatus.className =
             "form-status error";
 
@@ -235,7 +263,7 @@ if (
 
         }
 
-      } catch (error) {
+      } catch {
 
         formStatus.className =
           "form-status error";
